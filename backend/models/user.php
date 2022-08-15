@@ -5,7 +5,7 @@ class UserRes
     public $Status;
     public $Message;
 
-    function __construct($Status, $Message)
+    public function set_res($Status, $Message)
     {
         $this->Status = $Status;
         $this->Message = $Message;
@@ -18,7 +18,7 @@ class UserClass
     private $username;
     private $password;
 
-    function __construct($username, $password)
+    public function __construct($username, $password)
     {
         $this->username = $username;
         $this->password = $password;
@@ -28,23 +28,41 @@ class UserClass
     function findUser()
     {
         //get DB
-        $db = new SQLite3("../mydb.db");
+        $db = new SQLite3("./mydb.db");
+
+        //object to return
+        $res = new UserRes();
 
         //set query
-        $statement = $db->prepare("SELECT * FROM users WHERE Username = '$this->username'");
+        $statement = $db->prepare("SELECT Username, Password FROM users WHERE Username = '$this->username'");
         $result = $statement->execute();
         $row = $result->fetchArray();
 
         //return true or false if user exist in database.
-        if ($row) return true;
+        if ($row) {
+            //password matches
+            if(password_verify($this->password, $row['Password'])) {
+                $res->set_res(200, "Sign in sucessful");
+            }
 
-        return false;
+            //password doesn't match
+            if(!password_verify($this->password,$row['Password'])) {
+                $res->set_res(401, "Wrong email / password");
+            }
+        } else {
+            $res->set_res(401, "Wrong email / password");
+        };
+
+        return $res;
     }
 
     //create user
     function createUser() {
         //get db
-        $db = new SQLite3("../mydb.db");
+        $db = new SQLite3("./mydb.db");
+
+        //object to return
+        $res = new UserRes();
 
         //hash password then store to db
         $hash = password_hash($this->password, PASSWORD_DEFAULT);
@@ -52,11 +70,12 @@ class UserClass
         $result =  $db->exec("INSERT INTO users(Username, Password) VALUES('$this->username', '$hash')");
         
         if ($result) {
-            echo json_encode(array("Status"=>201, "Message"=>"Sign up successful"));
+            $res->set_res(201, "Sign up successful");
         } else {
-            echo "Error";
+            $res->set_res(500, "Error in signing up");
         }
         
+        return $res;
     }
 }
 ?>
