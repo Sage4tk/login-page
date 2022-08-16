@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { PassThrough } from "stream";
 
 const Signup:React.FC = () => {
 
@@ -20,24 +21,21 @@ const Signup:React.FC = () => {
         e.preventDefault();
         
         //fetch post to server
-        try {
-            const res = await fetch("http://localhost/auth.php", {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                method: "GET",
-                mode: "cors",
-                body: JSON.stringify(formHandler)
-            });
+        const res = await fetch("http://localhost/signup.php", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            // mode: "cors",
+            body: JSON.stringify({
+                user: "BOB",
+                password: "dsadas"
+            })
+        });
 
-            const data = await res.json();
+        const data = await res.json();
 
-            console.log(data.status)
-            
-        } catch(error) {
-            console.log(error)
-        }
+        console.log(data)
     }
 
     return (

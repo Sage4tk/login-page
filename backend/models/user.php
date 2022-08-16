@@ -63,6 +63,17 @@ class UserClass
 
         //object to return
         $res = new UserRes();
+        
+        //check in db if user already exist
+        $statement = $db->prepare("SELECT Username, Password FROM users WHERE Username = '$this->username'");
+        $result = $statement->execute();
+        $row = $result->fetchArray();
+
+        if ($row) {
+            $res->set_res(409, "User already exist");
+            return $res;
+        }
+
 
         //hash password then store to db
         $hash = password_hash($this->password, PASSWORD_DEFAULT);
