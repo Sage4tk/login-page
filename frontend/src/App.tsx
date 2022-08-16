@@ -10,12 +10,15 @@ import "./index.scss";
 const App:React.FC = () => {
 
   //display login form or signup form
-  const [formDisplay, setFormDisplay] = useState<boolean>(false);
+  const [formMode, setFormMode] = useState<boolean>(false);
+
+  //toaster infomation
+  const [toaster, setToaster] = useState<any>(null);
   
   return (
     <>
     <Signup />
-    <Toaster backgroundColor="#7AB87A" show={false} message="Success"/>
+    {toaster && <Toaster message={toaster?.message} backgroundColor={"#7AB87A"} />}
     </>
   )
 }

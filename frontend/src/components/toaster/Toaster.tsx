@@ -7,17 +7,14 @@ import close from "./close.svg";
 interface ToasterProps {
     message: string,
     backgroundColor: string,
-    show: boolean
 }
 
-const Toaster:React.FC<ToasterProps> = ({ message, backgroundColor, show }) => {
+const Toaster:React.FC<ToasterProps> = ({ message, backgroundColor }) => {
 
     const toasterStyling = {
         backgroundColor,
         color: "#fff"
     }
-
-    if (!show) return (null);
 
     return (
         <>

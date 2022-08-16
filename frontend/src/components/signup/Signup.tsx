@@ -28,8 +28,8 @@ const Signup:React.FC = () => {
             },
             // mode: "cors",
             body: JSON.stringify({
-                user: "BOB",
-                password: "dsadas"
+                user: formHandler.email,
+                password: formHandler.password
             })
         });
 
