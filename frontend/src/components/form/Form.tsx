@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { PassThrough } from "stream";
+interface SignupProps {
+    mode: boolean
+}
 
-const Signup:React.FC = () => {
+const Signup:React.FC<SignupProps> = ({ mode }) => {
 
     //form handler and listener
     const [formHandler, setFormHandler] = useState({
@@ -19,14 +21,15 @@ const Signup:React.FC = () => {
     //submit to server
     const submitToServer = async (e:any) => {
         e.preventDefault();
-        
-        //fetch post to server
-        const res = await fetch("http://localhost/signup.php", {
+
+        //validate input then post
+        if (!/^\s*$/.test(formHandler.email) && !/^\s*$/.test(formHandler.password) ) {
+            //fetch post to server
+            const res = await fetch(mode ? "http://localhost/auth.php":"http://localhost/signup.php", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
-            // mode: "cors",
             body: JSON.stringify({
                 user: formHandler.email,
                 password: formHandler.password
@@ -35,12 +38,14 @@ const Signup:React.FC = () => {
 
         const data = await res.json();
 
-        console.log(data)
+        console.log(data);
+        }
     }
 
     return (
         <>
         <form onSubmit={submitToServer}>
+            <h1>{mode ? "Login page":"SignUp Page"}</h1>
             <div>
                 <input type="email" value={formHandler.email} onChange={formListener} />
             </div>
@@ -48,7 +53,7 @@ const Signup:React.FC = () => {
                 <input type="password" value={formHandler.password} onChange={formListener} />
             </div>
             <div>
-                <input type="submit" value="Sign up" />
+                <input type="submit" value={mode ? "Login":"Signup"} />
             </div>
         </form>
         </>

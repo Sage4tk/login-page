@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 //component
-import Signup from "./components/signup/Signup";
+import Form from "./components/form/Form";
 import Toaster from "./components/toaster/Toaster";
 
 //styling
@@ -9,15 +9,15 @@ import "./index.scss";
 
 const App:React.FC = () => {
 
-  //display login form or signup form
-  const [formMode, setFormMode] = useState<boolean>(false);
+  //display login form or signup form "if true should be in login mode and vise versa"
+  const [formMode, setFormMode] = useState<boolean>(true);
 
   //toaster infomation
   const [toaster, setToaster] = useState<any>(null);
   
   return (
     <>
-    <Signup />
+    <Form mode={formMode} />
     {toaster && <Toaster message={toaster?.message} backgroundColor={"#7AB87A"} />}
     </>
   )
