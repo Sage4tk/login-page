@@ -1,0 +1,28 @@
+div {
+    width: 289px;
+    height: 67px;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    span {
+        background-color: #fff;
+        width: 4px;
+        height: 59px;
+        margin-left: 7px;
+        margin-right: 10px;
+    }
+
+    p {
+        font-weight: bold;
+    }
+
+    button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        position: absolute;
+        top: 8px;
+        right: 8px;
+    }
+}
