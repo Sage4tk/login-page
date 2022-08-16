@@ -21,7 +21,7 @@ const Toaster:React.FC<ToasterProps> = ({ message, backgroundColor, show }) => {
 
     return (
         <>
-        <div style={toasterStyling}>
+        <div style={toasterStyling} className="toaster">
             <span>
 
             </span>

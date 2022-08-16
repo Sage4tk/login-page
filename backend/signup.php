@@ -15,6 +15,6 @@
 
     //register user in db if post request
     if($_SERVER['REQUEST_METHOD'] === "POST") {
-        echo json_encode($res->findUser());
+        echo json_encode($res->createUser());
     }
 ?>
