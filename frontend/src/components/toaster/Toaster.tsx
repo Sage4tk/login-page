@@ -3,16 +3,18 @@ import "./ToasterStyle.scss";
 
 //import icons
 import close from "./close.svg";
+import React from "react";
 
 interface ToasterProps {
     message: string,
-    backgroundColor: string,
+    backgroundColor: number,
+    setToaster: React.Dispatch<React.SetStateAction<any>>
 }
 
-const Toaster:React.FC<ToasterProps> = ({ message, backgroundColor }) => {
+const Toaster:React.FC<ToasterProps> = ({ message, backgroundColor, setToaster }) => {
 
     const toasterStyling = {
-        backgroundColor,
+        backgroundColor: backgroundColor < 299 ? "#7AB87A":"#CC6361",
         color: "#fff"
     }
 
@@ -23,7 +25,9 @@ const Toaster:React.FC<ToasterProps> = ({ message, backgroundColor }) => {
 
             </span>
             <p>{message}</p>
-            <button>
+            <button onClick={() => {
+                setToaster(null);
+            }}>
                 <img src={close} alt="close img"/>
             </button>
         </div>

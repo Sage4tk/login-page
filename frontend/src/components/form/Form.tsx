@@ -1,9 +1,10 @@
-import { useState } from "react";
+import React, { useState } from "react";
 interface SignupProps {
-    mode: boolean
+    mode: boolean,
+    setToaster: React.Dispatch<React.SetStateAction<any>>
 }
 
-const Signup:React.FC<SignupProps> = ({ mode }) => {
+const Signup:React.FC<SignupProps> = ({ mode, setToaster }) => {
 
     //form handler and listener
     const [formHandler, setFormHandler] = useState({
@@ -35,10 +36,11 @@ const Signup:React.FC<SignupProps> = ({ mode }) => {
                 password: formHandler.password
             })
         });
-
+        
         const data = await res.json();
 
-        console.log(data);
+        //set toaster to display data
+        setToaster(data);
         }
     }
 

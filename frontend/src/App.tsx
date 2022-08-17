@@ -17,8 +17,8 @@ const App:React.FC = () => {
   
   return (
     <>
-    <Form mode={formMode} />
-    {toaster && <Toaster message={toaster?.message} backgroundColor={"#7AB87A"} />}
+    <Form mode={formMode} setToaster={setToaster} />
+    {toaster && <Toaster message={toaster?.Message} backgroundColor={toaster?.Status} setToaster={setToaster} />}
     </>
   )
 }
