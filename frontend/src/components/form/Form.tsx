@@ -8,11 +8,12 @@ import user from "../../img/person.svg";
 
 
 interface SignupProps {
-    mode: boolean,
     setToaster: React.Dispatch<React.SetStateAction<any>>
 }
 
-const Signup:React.FC<SignupProps> = ({ mode, setToaster }) => {
+const Signup:React.FC<SignupProps> = ({ setToaster }) => {
+    //change mode to login or register
+    const [mode, setMode] = useState<boolean>(true);
 
     //form handler and listener
     const [formHandler, setFormHandler] = useState({
@@ -24,13 +25,24 @@ const Signup:React.FC<SignupProps> = ({ mode, setToaster }) => {
     const formListener = (e:any) => {
         setFormHandler({
             ...formHandler,
-            [e.target.type]: e.target.value
+            [e.target.name]: e.target.value
         });
     }
 
     //submit to server
     const submitToServer = async (e:any) => {
         e.preventDefault();
+
+        //check if passwords match if in register mode
+        if (formHandler.password !== formHandler.confirmPassword) {
+            setToaster({
+                Message: "Password don't match",
+                Status: 400
+            });
+
+            //return out to make sure it doesn't get to the server
+            return;
+        }
 
         //validate input then post
         if (!/^\s*$/.test(formHandler.email) && !/^\s*$/.test(formHandler.password) ) {
@@ -61,14 +73,18 @@ const Signup:React.FC<SignupProps> = ({ mode, setToaster }) => {
             </div>
             <h1>Login</h1>
             <div className="form-ctrl">
-                <input type="email" value={formHandler.email} onChange={formListener} placeholder="Email" />
+                <input type="email" name="email" value={formHandler.email} onChange={formListener} placeholder="Email" />
             </div>
             <div className="form-ctrl">
-                <input type="password" value={formHandler.password} onChange={formListener} placeholder="Password" />
+                <input type="password" name="password" value={formHandler.password} onChange={formListener} placeholder="Password" />
             </div>
+            
+            {!mode && <div className="form-ctrl">
+                <input type="password" name="confirmPassword" value={formHandler.confirmPassword} onChange={formListener} placeholder="Confirm password" />
+            </div>}
             <div className="btn" >
                 <input type="submit" value={mode ? "Login":"Signup"} />
-                <p>Need an account? Sign up here.</p>
+                {mode ? <p>Need an account? <span onClick={() => {setMode(!mode)}}>Sign up here.</span></p>:<p>Have an account? <span onClick={() => {setMode(!mode)}}>Login here.</span></p>}
             </div>
         </form>
         </>

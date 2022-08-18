@@ -1,9 +1,10 @@
+import { useEffect } from "react";
+
 //import styles
 import "./ToasterStyle.scss";
 
 //import icons
 import close from "./close.svg";
-import React from "react";
 
 interface ToasterProps {
     message: string,

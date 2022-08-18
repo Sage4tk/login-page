@@ -21,7 +21,7 @@ const App:React.FC = () => {
   return (
     <>
     <div className="wrapper">
-      <Form mode={formMode} setToaster={setToaster} />
+      <Form setToaster={setToaster} />
       {toaster && <Toaster message={toaster?.Message} backgroundColor={toaster?.Status} setToaster={setToaster} />}
       <img src={bg} className="bg tr" />
       <img src={bg} className="bg bl" />
