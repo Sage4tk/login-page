@@ -1,4 +1,12 @@
 import React, { useState } from "react";
+
+//import css
+import "./formStyle.scss";
+
+//import images/icons
+import user from "../../img/person.svg";
+
+
 interface SignupProps {
     mode: boolean,
     setToaster: React.Dispatch<React.SetStateAction<any>>
@@ -9,7 +17,8 @@ const Signup:React.FC<SignupProps> = ({ mode, setToaster }) => {
     //form handler and listener
     const [formHandler, setFormHandler] = useState({
         email: "",
-        password: ""
+        password: "",
+        confirmPassword: ""
     });
 
     const formListener = (e:any) => {
@@ -46,16 +55,20 @@ const Signup:React.FC<SignupProps> = ({ mode, setToaster }) => {
 
     return (
         <>
-        <form onSubmit={submitToServer}>
-            <h1>{mode ? "Login page":"SignUp Page"}</h1>
-            <div>
-                <input type="email" value={formHandler.email} onChange={formListener} />
+        <form onSubmit={submitToServer} className="form-login">
+            <div className="icon">
+                <img src={user} />
             </div>
-            <div>
-                <input type="password" value={formHandler.password} onChange={formListener} />
+            <h1>Login</h1>
+            <div className="form-ctrl">
+                <input type="email" value={formHandler.email} onChange={formListener} placeholder="Email" />
             </div>
-            <div>
+            <div className="form-ctrl">
+                <input type="password" value={formHandler.password} onChange={formListener} placeholder="Password" />
+            </div>
+            <div className="btn" >
                 <input type="submit" value={mode ? "Login":"Signup"} />
+                <p>Need an account? Sign up here.</p>
             </div>
         </form>
         </>
