@@ -11,10 +11,6 @@ import "./index.scss";
 import bg from "./img/bg1.svg";
 
 const App:React.FC = () => {
-
-  //display login form or signup form "if true should be in login mode and vise versa"
-  const [formMode, setFormMode] = useState<boolean>(true);
-
   //toaster infomation
   const [toaster, setToaster] = useState<any>(null);
   
@@ -23,8 +19,8 @@ const App:React.FC = () => {
     <div className="wrapper">
       <Form setToaster={setToaster} />
       {toaster && <Toaster message={toaster?.Message} backgroundColor={toaster?.Status} setToaster={setToaster} />}
-      <img src={bg} className="bg tr" />
-      <img src={bg} className="bg bl" />
+      <img src={bg} className="bg tr" alt="" draggable="false" />
+      <img src={bg} className="bg bl" alt="" draggable="false" />
     </div>
     </>
   )

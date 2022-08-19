@@ -34,7 +34,7 @@ const Signup:React.FC<SignupProps> = ({ setToaster }) => {
         e.preventDefault();
 
         //check if passwords match if in register mode
-        if (formHandler.password !== formHandler.confirmPassword) {
+        if (!mode && (formHandler.password !== formHandler.confirmPassword)) {
             setToaster({
                 Message: "Password doesn't match",
                 Status: 400
@@ -62,6 +62,10 @@ const Signup:React.FC<SignupProps> = ({ setToaster }) => {
 
         //set toaster to display data
         setToaster(data);
+
+        //move user to sign in component if register is successful
+        if(!mode && (data?.Status === 201))
+            setMode(true);
         }
     }
 
@@ -71,7 +75,7 @@ const Signup:React.FC<SignupProps> = ({ setToaster }) => {
             <div className="icon">
                 <img src={user} alt="user icon" />
             </div>
-            <h1>Login</h1>
+            <h1>{mode ? "Login":"Signup"}</h1>
             <div className="form-ctrl">
                 <input type="email" name="email" value={formHandler.email} onChange={formListener} placeholder="Email" />
             </div>

@@ -47,3 +47,9 @@
         transform: translate(0);
     }
 }
+
+@media (min-width: 1024px) {
+    .toaster {
+        bottom: 30px;
+    }
+}

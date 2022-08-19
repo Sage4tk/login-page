@@ -48,6 +48,10 @@ h1 {
         width: 100%;
         padding: 1rem 0;
         margin-bottom: 0.5rem;
+
+        &:focus {
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
         
         &:hover {
             opacity: 0.8;
