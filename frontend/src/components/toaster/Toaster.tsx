@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 //import styles
 import "./ToasterStyle.scss";
 
@@ -26,7 +24,7 @@ const Toaster:React.FC<ToasterProps> = ({ message, backgroundColor, setToaster }
 
             </span>
             <p>{message}</p>
-            <button onClick={() => {
+            <button aria-label="close" onClick={() => {
                 setToaster(null);
             }}>
                 <img src={close} alt="close img"/>

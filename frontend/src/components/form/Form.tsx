@@ -36,7 +36,7 @@ const Signup:React.FC<SignupProps> = ({ setToaster }) => {
         //check if passwords match if in register mode
         if (formHandler.password !== formHandler.confirmPassword) {
             setToaster({
-                Message: "Password don't match",
+                Message: "Password doesn't match",
                 Status: 400
             });
 
@@ -69,7 +69,7 @@ const Signup:React.FC<SignupProps> = ({ setToaster }) => {
         <>
         <form onSubmit={submitToServer} className="form-login">
             <div className="icon">
-                <img src={user} />
+                <img src={user} alt="user icon" />
             </div>
             <h1>Login</h1>
             <div className="form-ctrl">
